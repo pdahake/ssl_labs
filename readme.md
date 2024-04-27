@@ -71,4 +71,4 @@ docker run --rm -v /tmp:/app/reports -e REPORT_PATH=reports --name scanner ssl_s
     - If Emailing is necessary I would consider something like AWS SES leveraging the report in S3
 ```
 
-See sample [report](report.html){:target="_blank"} 
+See sample [report](report.html)

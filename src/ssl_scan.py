@@ -3,6 +3,17 @@ import argparse
 import utility
 import os
 
+def argparser():
+    parser = argparse.ArgumentParser(description="SSLLabs cert scanner")
+    parser.add_argument("-a", "--action", type=str, default="analyze", choices=['analyze', 'register'], help="which command to execute.")
+    parser.add_argument("-n", "--hostname", type=str, default="www.elliottmgmt.com", help="Hostname to check")
+    parser.add_argument("-e", "--email", type=str, required=True, help="Email address to use to fetch data")
+    parser.add_argument("-f", "--first_name", type=str, default="", help="First Name of user to register for API access")
+    parser.add_argument("-l", "--last_name", type=str, default="",  help="Last Name of user to register for API access")
+    parser.add_argument("-o", "--organization", type=str, default="",  help="Organization of user to register for API access")
+    args = parser.parse_args()
+    return args
+
 if __name__ == "__main__":
     # Create logger instance
     logger = utility.setup_logger("SSLlabsApiClient")
@@ -11,15 +22,7 @@ if __name__ == "__main__":
     # make sure to pass REPORT_PATH as env variable which matchs the volume mount name
     report_path = os.getenv("REPORT_PATH", ".")
     try:
-        parser = argparse.ArgumentParser(description="SSLLabs cert scanner")
-        parser.add_argument("-a", "--action", type=str, default="analyze", choices=['analyze', 'register'], help="which command to execute.")
-        parser.add_argument("-n", "--hostname", type=str, default="www.elliottmgmt.com", help="Hostname to check")
-        parser.add_argument("-e", "--email", type=str, required=True, help="Email address to use to fetch data")
-        parser.add_argument("-f", "--first_name", type=str, default="", help="First Name of user to register for API access")
-        parser.add_argument("-l", "--last_name", type=str, default="",  help="Last Name of user to register for API access")
-        parser.add_argument("-o", "--organization", type=str, default="",  help="Organization of user to register for API access")
-        
-        args = parser.parse_args()
+        args = argparser()
 
         action = args.action
         hostname = args.hostname
